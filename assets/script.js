@@ -1,3 +1,6 @@
+var citySearch = document.querySelector("#city-search");
+var cityInputEl = document.querySelector("#city");
+
 var getCityData = function(city) {
   var apiUrl = "https://api.openweathermap.org/data/2.5/weather?q=" + city + "&appid=aba5ba8bf6ca29b364deececed3fe28b";
 
@@ -22,5 +25,18 @@ var getWeatherData = function (lat, lon) {
   })
 }
 
-getCityData("Toronto");
+var searchSubmitHandler = function(event) {
+  event.preventDefault();
+
+  var cityName = cityInputEl.value.trim();
+  if (cityName) {
+    getCityData(cityName);
+  } else {
+    alert("Please enter a city");
+  }
+}
+
+citySearch.addEventListener("submit", searchSubmitHandler);
+//getCityData("Toronto");
+
 
