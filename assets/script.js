@@ -1,4 +1,4 @@
-var getWeatherData = function(city) {
+var getCityData = function(city) {
   var apiUrl = "https://api.openweathermap.org/data/2.5/weather?q=" + city + "&appid=aba5ba8bf6ca29b364deececed3fe28b";
 
   fetch(apiUrl).then(function(response) {
@@ -6,13 +6,13 @@ var getWeatherData = function(city) {
       console.log(data);
       var lat = data.coord.lat;
       var lon = data.coord.lon;
-      getFiveDay(lat, lon);
+      getWeatherData(lat, lon);
     })
   })
   
 }
 
-var getFiveDay = function (lat, lon) {
+var getWeatherData = function (lat, lon) {
   var apiUrl = "https://api.openweathermap.org/data/2.5/onecall?lat="+ lat + "&lon="+ lon + "&exclude=hourly,minutely,alerts&appid=aba5ba8bf6ca29b364deececed3fe28b";
 
   fetch(apiUrl).then(function (response) {
@@ -22,5 +22,5 @@ var getFiveDay = function (lat, lon) {
   })
 }
 
-getWeatherData("Toronto");
+getCityData("Toronto");
 
