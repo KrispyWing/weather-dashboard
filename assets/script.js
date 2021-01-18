@@ -10,6 +10,9 @@ var currentWindEl = document.querySelector("#wind");
 var currentUvEl = document.querySelector("#uv");
 var fiveDayHeaderEl = document.querySelector("#fiveday-header");
 var fiveDayCardEl = document.querySelector("#fiveday-cards");
+var savedCityEl = document.querySelector("#saved-cities");
+var savedCities = [];
+
 
 var getCityData = function(city) {
   var apiUrl = "https://api.openweathermap.org/data/2.5/weather?q=" + city + "&units=metric&appid=aba5ba8bf6ca29b364deececed3fe28b";
@@ -20,12 +23,13 @@ var getCityData = function(city) {
       var lat = data.coord.lat;
       var lon = data.coord.lon;
       var cityName = data.name;
+      //savedCities.push(data.name);
       getFiveDay(lat, lon, cityName);
-      //displayCurrent(data)
+      
     })
   })
   
-}
+};
 
 var getFiveDay = function (lat, lon, cityName) {
   var apiUrl = "https://api.openweathermap.org/data/2.5/onecall?lat="+ lat + "&lon="+ lon + "&exclude=hourly,minutely,alerts&units=imperial&appid=aba5ba8bf6ca29b364deececed3fe28b";
@@ -37,7 +41,9 @@ var getFiveDay = function (lat, lon, cityName) {
       displayFiveDay(data);
     })
   })
-}
+};
+
+
 
 var searchSubmitHandler = function(event) {
   event.preventDefault();
@@ -45,10 +51,14 @@ var searchSubmitHandler = function(event) {
   var cityName = cityInputEl.value.trim();
   if (cityName) {
     getCityData(cityName);
+    savedCities.push(cityName);
+    saveCity();
+    savedCityDisplay();
+    cityInputEl.value=""
   } else {
     alert("Please enter a city");
   }
-}
+};
 
 var displayCurrent = function(data, cityName) {
  
@@ -85,7 +95,7 @@ var displayCurrent = function(data, cityName) {
   //display UV index
   var currentUv = data.current.uvi
   currentUvEl.textContent = "UV Index: " + currentUv;
-}
+};
 
 var displayFiveDay = function(data) {
   //clear old content
@@ -128,9 +138,30 @@ var displayFiveDay = function(data) {
     fiveDayCard.append(fiveDayHumidEl);    
     fiveDayCardEl.appendChild(fiveDayCard);
   }
+};
+
+var saveCity = function() {
+  localStorage.setItem("myCities", JSON.stringify(savedCities));
+}
+
+var savedCityDisplay = function() {
+  savedCityEl.textContent="";
+  var savedCityList = JSON.parse(localStorage.getItem("myCities"));
+  for (i=0; i<savedCityList.length; i++) {
+    var savedCityItem = document.createElement("button");
+    savedCityItem.classList = "btn btn-outline-dark"
+    savedCityItem.textContent = savedCityList[i];    
+    savedCityEl.append(savedCityItem);
+  }
+}
+
+var buttonClickHandler = function(event) {
+  var cityBtn = event.target.textContent;
+  getCityData(cityBtn);
 }
 
 citySearch.addEventListener("submit", searchSubmitHandler);
+savedCityEl.addEventListener("click", buttonClickHandler);
 
 
 

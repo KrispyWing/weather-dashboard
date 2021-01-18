@@ -9,13 +9,13 @@
 </head>
 <body>
   <header>
-    <div class="bg-dark ">
+    <div class="bg-dark">
       <h1 class="text-center text-light">Weather Dashboard</h1>
     </div>
   </header>
-  <div class="container">
+  <div class="container-fluid">
     <div class="row">
-      <div class="col-12 col-md-4">
+      <div class="col-12 col-md-3">
         <h4>Search For A City:</h4>        
         <div class="input-group mb-3">
           <form id="city-search">          
@@ -23,8 +23,11 @@
             <button type="submit" id="search" class="btn btn-primary"><i class="bi bi-search"></i></button>
           </form>
         </div>
+        <div id="saved-cities" class="d-grid">
+
+        </div>
       </div>
-      <div class="col-12 col-md-8">
+      <div class="col-12 col-md-9">
         <div class="row" id="current-container">
           <div class="col-12" id="currentweather">
             <h2 id="current-header" class="m-2 p-2"><span id="current-icon"></span></h2>
