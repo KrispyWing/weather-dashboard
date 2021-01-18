@@ -9,14 +9,14 @@
 </head>
 <body>
   <header>
-    <div class="">
-      <h1 class="">Weather Dashboard</h1>
+    <div class="bg-dark ">
+      <h1 class="text-center text-light">Weather Dashboard</h1>
     </div>
   </header>
   <div class="container">
     <div class="row">
       <div class="col-12 col-md-4">
-        <h3>Search For A City:</h3>        
+        <h4>Search For A City:</h4>        
         <div class="input-group mb-3">
           <form id="city-search">          
             <input name="city" id="city" type="text" autofocus="true" class="form-input" />
@@ -25,14 +25,21 @@
         </div>
       </div>
       <div class="col-12 col-md-8">
-        <div class="row">
+        <div class="row" id="current-container">
           <div class="col-12" id="currentweather">
-            <p>Current Weather</p>
+            <h2 id="current-header" class="m-2 p-2"><span id="current-icon"></span></h2>
           </div>
+          <div id="temp" class="m-2 p-2"></div>
+          <div id="humidity" class="m-2 p-2"></div>
+          <div id="wind" class="m-2 p-2"></div>
+          <div id="uv" class="m-2 p-2"></div>
         </div>
         <div class="row">
-          <div class="col-12" id="fiveday">
-            <p>Five Day</p>
+          <div class="col-12">
+            <h3 id="fiveday-header" class="p-2"></h3>          
+            <div class="row" id="fiveday-cards">
+
+            </div>
           </div>
         </div>
       </div>
