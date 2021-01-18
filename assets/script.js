@@ -1,4 +1,4 @@
-var citySearch = document.querySelector("#city-search");
+var citySearch = document.querySelector("#search");
 var cityInputEl = document.querySelector("#city");
 var currentWeatherEl = document.querySelector("#currentweather");
 var currentHeaderEl = document.querySelector("#current-header");
@@ -35,8 +35,7 @@ var getFiveDay = function (lat, lon, cityName) {
   var apiUrl = "https://api.openweathermap.org/data/2.5/onecall?lat="+ lat + "&lon="+ lon + "&exclude=hourly,minutely,alerts&units=imperial&appid=aba5ba8bf6ca29b364deececed3fe28b";
 
   fetch(apiUrl).then(function (response) {
-    response.json().then(function(data) {
-      console.log(data);
+    response.json().then(function(data) {      
       displayCurrent(data, cityName);
       displayFiveDay(data);
     })
@@ -94,7 +93,19 @@ var displayCurrent = function(data, cityName) {
 
   //display UV index
   var currentUv = data.current.uvi
-  currentUvEl.textContent = "UV Index: " + currentUv;
+  var uvBadge = document.createElement("span");
+  if (currentUv < 4) {
+    uvBadge.classList = "badge bg-success"
+  } else if (currentUv < 7) {
+    uvBadge.classList = "badge bg-warning"
+  }
+  else {
+    uvBadge.classList =" badge bg-danger"
+  }
+  uvBadge.textContent = currentUv;  
+  currentUvEl.textContent = "UV Index: ";
+  currentUvEl.append(uvBadge);
+  
 };
 
 var displayFiveDay = function(data) {
@@ -131,7 +142,7 @@ var displayFiveDay = function(data) {
 
   
     var fiveDayCard = document.createElement("div");
-    fiveDayCard.classList = "col card p-2";
+    fiveDayCard.classList = "col card p-3 m-3 bg-primary text-white rounded";
     fiveDayCard.innerHTML = "<h5>" + fiveDayDate + "</h5>";
     fiveDayCard.append(weatherIcon);
     fiveDayCard.append(fiveDayTempEl);
@@ -160,8 +171,8 @@ var buttonClickHandler = function(event) {
   getCityData(cityBtn);
 }
 
-citySearch.addEventListener("submit", searchSubmitHandler);
+citySearch.addEventListener("click", searchSubmitHandler);
 savedCityEl.addEventListener("click", buttonClickHandler);
-
+savedCityDisplay();
 
 
