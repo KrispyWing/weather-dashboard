@@ -67,7 +67,7 @@ var displayCurrent = function(data, cityName) {
   //get weather iconId and create element for it
   var iconId = data.current.weather[0].icon;
   var weatherIcon = document.createElement("img");
-  weatherIcon.src = "http://openweathermap.org/img/wn/" + iconId + ".png";
+  weatherIcon.src = "https://openweathermap.org/img/wn/" + iconId + ".png";
   
   //clear old content
   currentWeatherEl.textContent = "";
