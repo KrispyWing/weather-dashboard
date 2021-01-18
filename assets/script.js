@@ -126,7 +126,7 @@ var displayFiveDay = function(data) {
     //get five day weather icon
     var iconId = data.daily[i].weather[0].icon;
     var weatherIcon = document.createElement("img");
-    weatherIcon.src = "http://openweathermap.org/img/wn/" + iconId + ".png";
+    weatherIcon.src = "https://openweathermap.org/img/wn/" + iconId + ".png";
     weatherIcon.setAttribute("width", "50");
 
     //get 5 day temp
